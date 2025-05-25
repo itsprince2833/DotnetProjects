@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql_server_db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Sa@12345678"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    # restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'Sa@12345678' -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  sqlserver_data:
+    driver: local
+
+
+# Connecting to SQL Server:
+# - Host: localhost (or your Docker host IP if not running locally)
+# - Port: 1433 (or the host port you mapped)
+# - Login: sa
+# - Password: The password you set in SA_PASSWORD
