@@ -1,6 +1,8 @@
 @Hangfire_HostAddress = http://localhost:5003
 
-GET {{Hangfire_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{Hangfire_HostAddress}}/HangfireJobs/StartRecurringJob
+Accept: application/json;
+
 
 ###
+ 
