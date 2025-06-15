@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "StackOverflow";
+
+package stackoverflow;
+
+service Stackoverflow {
+  rpc GetAllUsers (GetAllUsersRequest) returns (GetAllUsersResponse);
+}
+
+message GetAllUsersRequest {
+  int32 count = 1;
+}
+
+message GetAllUsersResponse {
+   repeated User users = 1;
+}
+
+message User {
+    int32 id = 1;
+    string DisplayName = 2;
+    int32 Reputation = 3;
+}

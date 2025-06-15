@@ -1,4 +1,6 @@
 using Hangfire;
+using Hangfire.Utils;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,7 +21,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHangfireDashboard();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[] { new AllowAllDashboardAuthorization() }
+});
 app.MapControllers();
+app.UseHttpsRedirection();
 app.UseHttpsRedirection();
 app.Run();
